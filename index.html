@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Library App</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <header>
+            <h1 class="logo-text">Library App</h1>
+        </header>
+        <button id="addBookButton">Add Book</button>
+        <ul id="bookList">
+            <!-- cards will render here -->
+        </ul>
+        <div
+            id="addBookModal"
+            class="modal"
+            role="dialog"
+            aria-labelledby="modalTitle"
+            aria-describedby="modalDescription"
+        >
+            <div class="modal-content" role="document">
+                <button id="closeButton" aria-label="Close">&times;</button>
+                <h2>Add Book</h2>
+                <form id="addBookForm">
+                    <div>
+                        <label for="bookTitleInput">Title: </label>
+                        <input
+                            type="text"
+                            name="title"
+                            id="bookTitleInput"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label for="bookAuthorInput">Author: </label>
+                        <input
+                            type="text"
+                            name="author"
+                            id="bookAuthorInput"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label for="bookPagesInput">Number of pages: </label>
+                        <input
+                            type="text"
+                            name="pages"
+                            id="bookPagesInput"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label for="bookReadStatus">Already Read</label>
+                        <input
+                            type="checkbox"
+                            name="readStatus"
+                            id="bookReadStatus"
+                        />
+                    </div>
+
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+        </div>
+        <script src="index.js"></script>
+    </body>
+</html>
