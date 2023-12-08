@@ -8,10 +8,12 @@
     </head>
     <body>
         <header>
-            <h1 class="logo-text">Library App</h1>
+            <h1>Library App</h1>
         </header>
-        <button id="addBookButton">Add Book</button>
         <ul id="bookList">
+            <li>
+                <button id="addBookButton">+<br />Add New Book</button>
+            </li>
             <!-- cards will render here -->
         </ul>
         <div
@@ -44,7 +46,7 @@
                         />
                     </div>
                     <div>
-                        <label for="bookPagesInput">Number of pages: </label>
+                        <label for="bookPagesInput">Pages: </label>
                         <input
                             type="text"
                             name="pages"
@@ -53,7 +55,7 @@
                         />
                     </div>
                     <div>
-                        <label for="bookReadStatus">Already Read</label>
+                        <label for="bookReadStatus">Already Read:</label>
                         <input
                             type="checkbox"
                             name="readStatus"
@@ -61,7 +63,9 @@
                         />
                     </div>
 
-                    <button type="submit">Add</button>
+                    <div id="submitButtonContainer">
+                        <button type="submit" id="submitButton">Add</button>
+                    </div>
                 </form>
             </div>
         </div>

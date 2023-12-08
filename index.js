@@ -6,9 +6,9 @@ const myLibrary = [
         isRead: false,
     },
     {
-        title: "The Final Empire",
-        author: "Brandon Sanderson",
-        pages: 576,
+        title: "The Final Empire With A Very Long Book Title",
+        author: "Brandon Sanderson This guy also has a very long name",
+        pages: 1,
         isRead: false,
     },
 ];
@@ -19,16 +19,6 @@ class Book {
         this.author = author;
         this.pages = pages;
         this.isRead = isRead;
-    }
-
-    toggleRead() {
-        this.isRead = !this.isRead;
-    }
-
-    info() {
-        return `${this.title} by ${this.author}, ${this.pages} 
-        ${this.pages === 1 ? "page" : "pages"}, 
-        ${this.isRead ? "already read" : "not read yet"}`;
     }
 }
 
@@ -66,6 +56,7 @@ function createBookCard(book, index) {
 
     const removeButton = document.createElement("button");
     removeButton.textContent = "Remove";
+    removeButton.classList.add("delete-button");
     removeButton.addEventListener("click", () => {
         myLibrary.splice(index, 1);
         renderBooks(myLibrary);
@@ -78,47 +69,56 @@ function createBookCard(book, index) {
 
 function renderBooks(myLibrary) {
     let bookList = document.getElementById("bookList");
-    bookList.textContent = "";
+
+    for (let i = bookList.children.length - 1; i > 0; i--) {
+        bookList.removeChild(bookList.children[i]);
+    }
+
     myLibrary.forEach((book, index) => {
         const bookCard = createBookCard(book, index);
         bookList.appendChild(bookCard);
     });
 }
 
-const pagesInput = document.getElementById("bookPagesInput");
-pagesInput.addEventListener("input", event => {
-    if (pagesInput.value) {
-        pagesInput.value = pagesInput.value.replace(/[^0-9]/g, "");
-    }
-});
-
-const bookForm = document.getElementById("addBookForm");
-bookForm.addEventListener("submit", event => {
-    event.preventDefault();
-
+function addBook() {
     const title = document.getElementById("bookTitleInput").value;
     const author = document.getElementById("bookAuthorInput").value;
-    const pages = document.getElementById("bookPagesInput").value;
+    const pages = parseInt(document.getElementById("bookPagesInput").value);
     const readStatus = document.getElementById("bookReadStatus").checked;
     const newBook = new Book(title, author, pages, readStatus);
     myLibrary.push(newBook);
     renderBooks(myLibrary);
-    bookForm.reset();
-    modal.style.display = "none";
-});
-
-const modalCloseButton = document.getElementById("closeButton");
-const modal = document.getElementById("addBookModal");
-
-window.onclick = function (event) {
-    if (event.target == modal || event.target == modalCloseButton) {
-        modal.style.display = "none";
-    }
+    document.getElementById("addBookForm").reset();
+    document.getElementById("addBookModal").style.display = "none";
 };
 
-const addBookButton = document.getElementById("addBookButton");
-addBookButton.addEventListener("click", function (event) {
-    modal.style.display = "block";
-});
+function setUpEventListeners() {
+    document.getElementById("addBookForm").addEventListener("submit", event => {
+        event.preventDefault();
+        addBook();
+    });
 
+    const modalCloseButton = document.getElementById("closeButton");
+    const modal = document.getElementById("addBookModal");
+
+    window.onclick = function (event) {
+        if (event.target == modal || event.target == modalCloseButton) {
+            modal.style.display = "none";
+        }
+    };
+
+    const addBookButton = document.getElementById("addBookButton");
+    addBookButton.addEventListener("click", () => {
+        modal.style.display = "block";
+    });
+
+    const pagesInput = document.getElementById("bookPagesInput");
+    pagesInput.addEventListener("input", event => {
+        if (pagesInput.value) {
+            pagesInput.value = pagesInput.value.replace(/[^0-9]/g, "");
+        }
+    });
+};
+
+setUpEventListeners();
 renderBooks(myLibrary);
